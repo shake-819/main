@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>My Sites // ARCHIVE</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;800&family=Noto+Sans+JP:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#04050c;--panel:#0a0e1d;--line:rgba(0,240,255,.28);
+  --cyan:#00f0ff;--pink:#ff2bd6;--lime:#b6ff3b;
+  --text:#d9f7ff;--dim:#7592a8;
+  --disp:"Orbitron","Noto Sans JP",system-ui,sans-serif;
+  --body:"Noto Sans JP",system-ui,sans-serif;
+  box-sizing:border-box;color-scheme:dark;
+  padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
+}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*,*::before,*::after{box-sizing:inherit}
+body{margin:0;background:var(--bg);color:var(--text);font:400 15px/1.7 var(--body);min-height:100vh;overflow-x:hidden}
+#rain{position:fixed;inset:0;width:100%;height:100%;opacity:.16;z-index:0;pointer-events:none}
+.floor{position:fixed;left:-50%;right:-50%;bottom:0;height:55vh;z-index:0;pointer-events:none;
+  background:
+   linear-gradient(var(--line) 1px,transparent 1px) 0 0/100% 48px,
+   linear-gradient(90deg,var(--line) 1px,transparent 1px) 0 0/48px 100%;
+  transform:perspective(420px) rotateX(62deg);transform-origin:bottom;
+  -webkit-mask:linear-gradient(transparent,#000 70%);mask:linear-gradient(transparent,#000 70%);
+  animation:floor 2.4s linear infinite;opacity:.55}
+@keyframes floor{to{background-position:0 48px,0 0}}
+.scan{position:fixed;inset:0;z-index:5;pointer-events:none;
+  background:repeating-linear-gradient(transparent 0 2px,rgba(0,0,0,.18) 2px 3px);mix-blend-mode:multiply}
+.wrap{position:relative;z-index:2;max-width:1120px;margin:0 auto;padding:56px 20px 80px}
+
+header{margin-bottom:36px}
+h1{position:relative;margin:0;font:800 clamp(34px,8vw,84px)/1 var(--disp);letter-spacing:.04em;color:var(--text);
+  text-shadow:0 0 18px rgba(0,240,255,.55)}
+h1::before,h1::after{content:attr(data-text);position:absolute;inset:0;overflow:hidden}
+h1::before{color:var(--pink);text-shadow:none;animation:gl1 3.2s steps(1) infinite;mix-blend-mode:screen}
+h1::after{color:var(--cyan);text-shadow:none;animation:gl2 3.2s steps(1) infinite;mix-blend-mode:screen}
+@keyframes gl1{0%,88%,100%{clip-path:inset(0 0 100% 0);transform:none}90%{clip-path:inset(10% 0 60% 0);transform:translate(-6px,0)}94%{clip-path:inset(55% 0 20% 0);transform:translate(5px,0)}97%{clip-path:inset(80% 0 4% 0);transform:translate(-3px,0)}}
+@keyframes gl2{0%,89%,100%{clip-path:inset(0 0 100% 0);transform:none}91%{clip-path:inset(40% 0 35% 0);transform:translate(6px,0)}95%{clip-path:inset(5% 0 82% 0);transform:translate(-5px,0)}98%{clip-path:inset(65% 0 10% 0);transform:translate(3px,0)}}
+.sub{margin:16px 0 0;font:400 14px/1.5 ui-monospace,"SFMono-Regular",Menlo,Consolas,monospace;color:var(--lime);min-height:1.5em}
+.sub::after{content:"▌";margin-left:4px;animation:blink 1s steps(1) infinite}
+@keyframes blink{50%{opacity:0}}
+
+.filters{display:flex;flex-wrap:wrap;gap:10px;margin:28px 0 30px}
+.filters button{cursor:pointer;background:transparent;color:var(--dim);border:1px solid var(--line);padding:7px 16px;
+  font:500 12px var(--disp);letter-spacing:.08em;transition:.2s;clip-path:polygon(10px 0,100% 0,calc(100% - 10px) 100%,0 100%)}
+.filters button:hover{color:var(--cyan);border-color:var(--cyan)}
+.filters button:focus-visible,.card:focus-visible{outline:2px solid var(--pink);outline-offset:3px}
+.filters button.on{color:#001418;background:var(--cyan);border-color:var(--cyan);box-shadow:0 0 16px var(--cyan)}
+
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:26px}
+.card{--mx:50%;--my:50%;position:relative;display:flex;flex-direction:column;text-decoration:none;color:inherit;
+  background:linear-gradient(165deg,rgba(14,20,40,.92),rgba(6,8,18,.92));border:1px solid var(--line);
+  transition:transform .25s ease-out,box-shadow .3s,border-color .3s;will-change:transform;
+  opacity:0;translate:0 26px;filter:blur(6px)}
+.card.in{opacity:1;translate:0 0;filter:none;transition:transform .25s ease-out,box-shadow .3s,border-color .3s,opacity .6s,translate .6s cubic-bezier(.2,.9,.2,1),filter .6s}
+.card.off{display:none}
+.card::before,.card::after{content:"";position:absolute;width:16px;height:16px;pointer-events:none;z-index:3;transition:.3s}
+.card::before{top:-1px;left:-1px;border-top:2px solid var(--cyan);border-left:2px solid var(--cyan)}
+.card::after{right:-1px;bottom:-1px;border-right:2px solid var(--pink);border-bottom:2px solid var(--pink)}
+.card:hover{border-color:var(--cyan);box-shadow:0 0 24px rgba(0,240,255,.25),inset 0 0 30px rgba(0,240,255,.06)}
+.card:hover::before,.card:hover::after{width:34px;height:34px}
+.glow{position:absolute;inset:0;z-index:2;pointer-events:none;opacity:0;transition:opacity .3s;
+  background:radial-gradient(circle 180px at var(--mx) var(--my),rgba(0,240,255,.22),transparent 70%)}
+.card:hover .glow{opacity:1}
+
+.thumb{position:relative;aspect-ratio:16/10;overflow:hidden;border-bottom:1px solid var(--line);background:#050710}
+.thumb>*{display:block;width:100%;height:100%;object-fit:cover}
+.thumb::after{content:"";position:absolute;left:0;right:0;top:-30%;height:30%;pointer-events:none;
+  background:linear-gradient(transparent,rgba(0,240,255,.35),transparent);opacity:0}
+.card:hover .thumb::after{opacity:1;animation:sweep 1.1s linear infinite}
+@keyframes sweep{to{top:110%}}
+.card:hover .thumb>*{animation:jit .5s steps(1) 1;filter:saturate(1.3) drop-shadow(2px 0 rgba(255,43,214,.7)) drop-shadow(-2px 0 rgba(0,240,255,.7))}
+@keyframes jit{0%{transform:translate(-4px,0) skewX(4deg)}25%{transform:translate(5px,1px)}50%{transform:translate(-2px,-1px) skewX(-3deg)}75%{transform:translate(3px,0)}100%{transform:none}}
+
+.body{padding:16px 18px 18px;display:flex;flex-direction:column;gap:10px;flex:1}
+.tags{display:flex;gap:6px;flex-wrap:wrap}
+.tags span{font:500 11px ui-monospace,Menlo,Consolas,monospace;color:var(--pink);border:1px solid rgba(255,43,214,.45);padding:1px 8px}
+.card h2{margin:0;font:800 17px/1.3 var(--disp);letter-spacing:.03em;color:var(--cyan);min-height:1.3em}
+.card p{margin:0;color:var(--dim);font-size:14px;flex:1}
+.go{display:flex;justify-content:space-between;align-items:center;font:500 12px var(--disp);letter-spacing:.1em;color:var(--lime)}
+.go i{font-style:normal;transition:transform .3s}
+.card:hover .go i{transform:translateX(8px)}
+.go::after{content:"";position:absolute;left:0;bottom:0;height:2px;width:0;background:linear-gradient(90deg,var(--cyan),var(--pink));transition:width .4s}
+.card:hover .go::after{width:100%}
+
+footer{margin-top:56px;color:var(--dim);font:400 12px ui-monospace,Menlo,Consolas,monospace;text-align:center}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}.card{opacity:1;translate:none;filter:none}}
+</style>
+</head>
+<body>
+<canvas id="rain" aria-hidden="true"></canvas>
+<div class="floor" aria-hidden="true"></div>
+<div class="scan" aria-hidden="true"></div>
+
+<div class="wrap">
+  <header>
+    <h1 data-text="MY SITES">MY SITES</h1>
+    <p class="sub" id="sub" aria-live="off"></p>
+  </header>
+  <nav class="filters" id="filters" aria-label="カテゴリ絞り込み"></nav>
+  <main class="grid" id="grid"></main>
+  <footer id="foot"></footer>
+</div>
+
+<script>
+/* ===== ここを書き換えれば自分のサイトが並びます =====
+   title: サイト名 / desc: 短い説明 / url: 遷移先 / tags: カテゴリ
+   img: サムネイルのパス(空ならネオン柄を自動生成)               */
+const SITES=[
+  {title:"Web Quiz",desc:"テスト対策に最適！学習記録まで見られるクイズサイト。",url:"https://shake-819.github.io/webquiz",tags:["STUDY"],img:""},
+  {title:"Typing",desc:"初心者からガチ勢まで楽しめるタイピングサイト。ランキングも。",url:"https://shake-819.github.io/typing",tags:["GAME"],img:""},
+  {title:"SQL",desc:"このサイトで学べばSQLが丸わかり！結果がそのまま出力されるので癖になる。",url:"https://shake-819.github.io/sql",tags:["STUDY"],img:""},
+  {title:"Stick Smash",desc:"棒人間の格闘ゲーム。さまざまな装備で無双しよう。",url:"https://shake-819.github.io/stick-smash",tags:["GAME"],img:""}
+];
+
+const $=s=>document.querySelector(s), reduce=matchMedia("(prefers-reduced-motion:reduce)").matches;
+const esc=t=>String(t).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+
+/* サムネ自動生成: サイトごとに色相の違うネオン柄 */
+function art(s,i){
+  const h=(i*67+185)%360,r=k=>((Math.sin((i+1)*97+k*31)*10000)%1+1)%1;
+  let d="";
+  for(let k=0;k<6;k++){const x=r(k)*300,y=r(k+9)*160,w=30+r(k+3)*90;
+    d+=`<rect x="${x}" y="${y}" width="${w}" height="${6+r(k+5)*26}" fill="hsl(${h+k*22},100%,60%)" opacity=".${3+k%4}"/>`;}
+  return `<svg viewBox="0 0 320 200" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="${esc(s.title)}">
+  <defs><linearGradient id="g${i}" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="hsl(${h},85%,10%)"/><stop offset="1" stop-color="hsl(${h+70},85%,22%)"/></linearGradient>
+  <pattern id="p${i}" width="20" height="20" patternUnits="userSpaceOnUse"><path d="M20 0H0V20" fill="none" stroke="hsl(${h},100%,65%)" stroke-opacity=".2"/></pattern></defs>
+  <rect width="320" height="200" fill="url(#g${i})"/><rect width="320" height="200" fill="url(#p${i})"/>${d}
+  <circle cx="${220+r(1)*60}" cy="${50+r(2)*60}" r="34" fill="none" stroke="hsl(${h+40},100%,70%)" stroke-width="2"/>
+  <text x="18" y="176" font-family="Orbitron,sans-serif" font-weight="800" font-size="44" fill="#fff" opacity=".85">${esc(s.title.slice(0,2).toUpperCase())}</text></svg>`;
+}
+
+/* カード生成 */
+const grid=$("#grid"),chars="01<>/\\{}[]#$%&@ｱｲｳｴｵｶｷｸ";
+SITES.forEach((s,i)=>{
+  const a=document.createElement("a");
+  a.className="card";a.href=s.url;a.target="_blank";a.rel="noopener";
+  a.dataset.tags=s.tags.join(",");
+  a.innerHTML=`<div class="glow"></div><div class="thumb"></div>
+   <div class="body"><div class="tags">${s.tags.map(t=>`<span>${esc(t)}</span>`).join("")}</div>
+   <h2 data-t="${esc(s.title)}">${esc(s.title)}</h2><p>${esc(s.desc)}</p>
+   <div class="go">ACCESS<i>▶▶</i></div></div>`;
+  const th=a.querySelector(".thumb");
+  if(s.img){const im=new Image();im.alt=s.title;im.loading="lazy";im.src=s.img;
+    im.onerror=()=>{th.innerHTML=art(s,i)};th.appendChild(im);}
+  else th.innerHTML=art(s,i);
+
+  const h2=a.querySelector("h2");
+  a.addEventListener("pointerenter",()=>{ if(!reduce) scramble(h2) });
+  a.addEventListener("pointermove",e=>{
+    if(e.pointerType!=="mouse")return;
+    const b=a.getBoundingClientRect(),x=(e.clientX-b.left)/b.width,y=(e.clientY-b.top)/b.height;
+    a.style.setProperty("--mx",x*100+"%");a.style.setProperty("--my",y*100+"%");
+    if(!reduce)a.style.transform=`perspective(800px) rotateX(${(.5-y)*10}deg) rotateY(${(x-.5)*12}deg) translateY(-4px)`;
+  });
+  a.addEventListener("pointerleave",()=>{a.style.transform=""});
+  grid.appendChild(a);
+});
+
+/* タイトルがデコードされるように文字が入れ替わる */
+function scramble(el){
+  const t=el.dataset.t;let f=0;clearInterval(el._i);
+  el._i=setInterval(()=>{
+    el.textContent=[...t].map((c,i)=>i<f/2||c===" "?c:chars[Math.random()*chars.length|0]).join("");
+    if(++f>t.length*2){clearInterval(el._i);el.textContent=t}
+  },28);
+}
+
+/* 起動シーケンス: カードが順番にブートするように現れる */
+function boot(){
+  [...grid.children].filter(c=>!c.classList.contains("off")).forEach((c,i)=>{
+    c.classList.remove("in");void c.offsetWidth;
+    setTimeout(()=>c.classList.add("in"),reduce?0:120+i*110);
+  });
+}
+
+/* フィルタ */
+const tags=["ALL",...new Set(SITES.flatMap(s=>s.tags))],fl=$("#filters");
+tags.forEach((t,i)=>{
+  const b=document.createElement("button");b.textContent=t;if(!i)b.className="on";
+  b.onclick=()=>{
+    fl.querySelectorAll("button").forEach(x=>x.classList.toggle("on",x===b));
+    [...grid.children].forEach(c=>c.classList.toggle("off",t!=="ALL"&&!c.dataset.tags.split(",").includes(t)));
+    boot();
+  };
+  fl.appendChild(b);
+});
+$("#foot").textContent=`// ${SITES.length} sites online`;
+boot();
+
+/* タイピング表示 */
+(function(){
+  const msg=`> ${SITES.length} sites found. select a card to jump.`,el=$("#sub");let n=0;
+  if(reduce){el.textContent=msg;return}
+  const t=setInterval(()=>{el.textContent=msg.slice(0,++n);if(n>=msg.length)clearInterval(t)},38);
+})();
+
+/* 背景のデジタルレイン */
+(function(){
+  if(reduce)return;
+  const c=$("#rain"),x=c.getContext("2d");let cols,drops,fs=16;
+  function size(){c.width=innerWidth;c.height=innerHeight;cols=Math.ceil(c.width/fs);drops=Array.from({length:cols},()=>Math.random()*-50)}
+  size();addEventListener("resize",size);
+  setInterval(()=>{
+    x.fillStyle="rgba(4,5,12,.12)";x.fillRect(0,0,c.width,c.height);
+    x.fillStyle="#00f0ff";x.font=fs+"px monospace";
+    drops.forEach((y,i)=>{
+      x.fillText(chars[Math.random()*chars.length|0],i*fs,y*fs);
+      drops[i]=y*fs>c.height&&Math.random()>.975?0:y+1;
+    });
+  },60);
+})();
+</script>
+</body>
+</html>
