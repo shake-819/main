@@ -107,7 +107,7 @@ footer{margin-top:56px;color:var(--dim);font:400 12px ui-monospace,Menlo,Consola
 .trail{position:fixed;top:0;left:0;border-radius:50%;pointer-events:none;z-index:50;mix-blend-mode:screen}
 @media (pointer:coarse){.trail{display:none}}
 
-@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}.card{opacity:1;translate:none;filter:none}.hud,.trail{display:none}}
+/* 強制表示のためprefers-reduced-motion分岐は無効化済み */
 </style>
 </head>
 <body>
@@ -137,7 +137,7 @@ const SITES=[
   {title:"Micro Rush",desc:"制限時間は1回5秒。さまざまなお題を即座にクリアしていこう。",url:"https://shake-819.github.io/micro-rush",tags:["GAME"],img:"images/micro-rush.png"}
 ];
 
-const $=s=>document.querySelector(s), reduce=matchMedia("(prefers-reduced-motion:reduce)").matches;
+const $=s=>document.querySelector(s), reduce=false; /* 強制表示: OSのモーション削減設定を無視して常に演出ON */
 const esc=t=>String(t).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 
 /* サムネ自動生成: サイトごとに色相の違うネオン柄 */
